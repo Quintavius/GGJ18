@@ -185,9 +185,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4284726137181674}
   - component: {fileID: 95080978271903532}
-  - component: {fileID: 114627622863822910}
   - component: {fileID: 54137037205811688}
   - component: {fileID: 136114969207153010}
+  - component: {fileID: 114179860920160274}
   m_Layer: 0
   m_Name: Minotaur
   m_TagString: Player
@@ -1978,7 +1978,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114627622863822910
+--- !u!114 &114179860920160274
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1986,12 +1986,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1193311704744550}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7757969a8e858e4590268b4c0e70715, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a0d475ddd35e23478dfebeceec21628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alternateForm: {fileID: 1424432915607558, guid: 418e96d77507ec142955e59648254efc,
+  alternateForm: {fileID: 1999427837861020, guid: 832376f39050aa5418b07ae0ff853d65,
     type: 2}
-  cam: {fileID: 114863496395638162, guid: 9994f28552451ac478b1d423eab551b4, type: 2}
+  cam: {fileID: 114227233900527802, guid: 9994f28552451ac478b1d423eab551b4, type: 2}
 --- !u!136 &136114969207153010
 CapsuleCollider:
   m_ObjectHideFlags: 1
