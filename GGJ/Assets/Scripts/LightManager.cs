@@ -20,12 +20,19 @@ public class LightManager : MonoBehaviour {
 		lightState = FindObjectOfType<LightState>();
 
 		haloMesh = new Mesh();
-		haloMesh.name = "Halo Mesh";
+		haloMesh.name = "Halo Mesh " + Random.Range(0,1000);
 		haloMeshFilter.mesh = haloMesh;
 	}
 	private void Update(){
-		radius = childLight.range;
-		angle = childLight.spotAngle;
+		if (childLight.type == LightType.Spot){
+			angle = childLight.spotAngle;
+			radius = childLight.range;
+			}
+		else if (childLight.type == LightType.Point){
+			angle = 360;
+			radius = childLight.range;
+		}
+
 		LookForPlayer();
 	}
 
@@ -40,7 +47,7 @@ public class LightManager : MonoBehaviour {
 		List<Vector3> viewPoints = new List<Vector3>();
 
 		for (int i = 0; i <= stepCount; i++){
-			float meshAngle = transform.eulerAngles.z - angle/2 + stepAngleSize * i -4;
+			float meshAngle = 360-transform.eulerAngles.z - angle/2 + stepAngleSize * i;
 			ViewCastInfo newViewCast = ViewCast(meshAngle);
 			viewPoints.Add(newViewCast.point);
 		}
