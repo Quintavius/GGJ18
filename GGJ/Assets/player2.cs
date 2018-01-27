@@ -25,7 +25,7 @@ public class player2 : MonoBehaviour {
 		{
 			if (IsGrounded ()) 
 			{
-				m_rigidBody.velocity += new Vector3 (0.0f, jump, 0.0f);
+				m_rigidBody.velocity = new Vector3 (0.0f, jump, 0.0f);
 			}
 		}	
 
@@ -34,14 +34,14 @@ public class player2 : MonoBehaviour {
 		{
 			right = true;
 			moving = true;
-			m_rigidBody.velocity += new Vector3 (speed*Time.deltaTime, 0.0f, 0.0f);
+			m_rigidBody.velocity = new Vector3 (speed*Time.deltaTime, 0.0f, 0.0f);
 		}	
 
 		if (Input.GetKey(KeyCode.LeftArrow)) 
 		{
 			right = false;
 			moving = true;
-			m_rigidBody.velocity += new Vector3 (-1.0f * speed * Time.deltaTime, 0.0f,  0.0f);
+			m_rigidBody.velocity = new Vector3 (-1.0f * speed * Time.deltaTime, 0.0f,  0.0f);
 		}	
 
 		//if (big) {
