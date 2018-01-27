@@ -16,8 +16,9 @@ public class PlaceholderControls : MonoBehaviour {
 		character.SimpleMove(new Vector3 (0,-3,0));
 
 		if (character.isGrounded){
-			Vector3 move = new Vector3(Input.GetAxis("Horizontal") * 5,Input.GetAxis("Vertical") * jump,0);
+			Vector3 move = new Vector3(Input.GetAxis("Horizontal") * speed, 0,0);
 			character.SimpleMove(move);
+			character.Move(new Vector3(0, System.Convert.ToSingle(Input.GetButtonDown("Jump")) * jump, 0));
 		}
 	}
 }
