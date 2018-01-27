@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class player2 : MonoBehaviour {
+	bool moving = false;
+	bool right = false;
 	public Quaternion NewRotation;
 	Rigidbody m_rigidBody;
 	public float jump;
@@ -18,7 +20,8 @@ public class player2 : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.Space) && !big) 
+		moving = false;
+		if (Input.GetKeyDown (KeyCode.Space) && !(gameObject.GetComponent<LightState>().playerIsLit)) 
 		{
 			if (IsGrounded ()) 
 			{
@@ -29,11 +32,15 @@ public class player2 : MonoBehaviour {
 
 		if (Input.GetKey (KeyCode.RightArrow)) 
 		{
+			right = true;
+			moving = true;
 			m_rigidBody.velocity += new Vector3 (speed*Time.deltaTime, 0.0f, 0.0f);
 		}	
 
 		if (Input.GetKey(KeyCode.LeftArrow)) 
 		{
+			right = false;
+			moving = true;
 			m_rigidBody.velocity += new Vector3 (-1.0f * speed * Time.deltaTime, 0.0f,  0.0f);
 		}	
 
@@ -48,13 +55,17 @@ public class player2 : MonoBehaviour {
 			big = !big;
 		}	
 		m_rigidBody.velocity = new Vector3(m_rigidBody.velocity.x ,m_rigidBody.velocity.y,0);
-		//gameObject.transform.rotation = Quaternion.Euler (0, 90, 0);
+
 
 
 	}
 	void FixedUpdate()
 	{
 		transform.rotation = NewRotation;
+		if (right) 
+		{
+			transform.Rotate (Vector3.up * 180);
+		}
 	}
 
 	bool IsGrounded()
