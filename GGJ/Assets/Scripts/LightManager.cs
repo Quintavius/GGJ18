@@ -16,6 +16,15 @@ public class LightManager : MonoBehaviour {
 	public float meshResolution;
 	public MeshFilter haloMeshFilter;
 	Mesh haloMesh;
+	bool activeLight;
+
+	//Hacky checks to keep LookForPlayer from spamming writes
+	//Simulates OnCollisionEnter by enabling after running and disabling once original cond is false
+	bool enter_range;
+	bool enter_angle;
+	bool enter_occluded;
+	bool enter_lit;
+
 	private void Start(){
 		lightState = FindObjectOfType<LightState>();
 
@@ -82,7 +91,7 @@ public class LightManager : MonoBehaviour {
 		}
 	}
 	
-	//See if there's a player inside radius 
+	//See if there's a player inside radius, if not remove light from player's counter
 	void LookForPlayer(){
 		Debug.Log("Looking for player");
 		Collider[] playerInViewRadius = Physics.OverlapSphere(transform.position, radius, playerMask);
@@ -95,20 +104,63 @@ public class LightManager : MonoBehaviour {
 				float distToPlayer = Vector3.Distance(transform.position, player.position);
 
 				if (!Physics.Raycast(transform.position, dirToPlayer, distToPlayer, obstacleMask)){			//Is the player occluded?
-					//Light is shining on player
-					lightState.playerIsLit = true;
-					Debug.Log("Found Player");
-				}else{
-					lightState.playerIsLit = false;
-					Debug.Log("Player occluded");
+					//We're being lit
+					if (!enter_lit){
+						lightState.playerIsLit = true;
+						activeLight = true;
+						lightState.activeLights++;
+						Debug.Log("Found Player");
+
+						enter_range = false;
+						enter_angle = false;
+						enter_occluded = false;
+						enter_lit = true;
+						}
+
+				}else if (activeLight){
+					if (!enter_occluded){
+						lightState.activeLights--;
+						activeLight = false;
+						if (lightState.activeLights == 0){
+							lightState.playerIsLit = false;
+							}
+						Debug.Log("Player occluded");
+
+						enter_range = false;
+						enter_angle = false;
+						enter_lit = false;
+						enter_occluded = true;
+						}
 				}
-			}else{
-				lightState.playerIsLit = false;
-				Debug.Log("No Player in angle");
+			}else if (activeLight){
+				if (!enter_angle){
+					lightState.activeLights--;
+					activeLight = false;
+					if (lightState.activeLights == 0){
+							lightState.playerIsLit = false;
+						}
+					Debug.Log("No Player in angle");
+
+					enter_range = false;			
+					enter_lit = false;
+					enter_occluded = false;
+					enter_angle = true;
+					}
 			}
-		}else{
-				lightState.playerIsLit = false;
-				Debug.Log("No Player in range");
+		}else if (activeLight){
+			if(!enter_range){
+					lightState.activeLights--;
+					activeLight = false;
+					if (lightState.activeLights == 0){
+							lightState.playerIsLit = false;
+						}
+					Debug.Log("No Player in range");
+							
+					enter_lit = false;
+					enter_occluded = false;
+					enter_angle = false;
+					enter_range = true;	
+				}
 			}
 	}
 	public Vector3 dirFromAngle(float angleInDegrees, bool angleIsGlobal){

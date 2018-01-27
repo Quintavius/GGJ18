@@ -10,9 +10,17 @@ Shader "Halo"
 
 	SubShader
 	{
-		Tags{ "RenderType" = "Transparent"  "Queue" = "Geometry+0" "IsEmissive" = "true"  }
+		Tags{ "RenderType" = "Transparent"  "Queue" = "Overlay+0" "IsEmissive" = "true"  }
 		Cull Back
-		Blend One One
+		ZWrite Off
+		Stencil
+		{
+			Ref 2
+			Comp NotEqual
+			Pass Replace
+		}
+		Blend One One , SrcAlpha OneMinusSrcAlpha
+		AlphaToMask On
 		CGINCLUDE
 		#include "UnityPBSLighting.cginc"
 		#include "Lighting.cginc"
@@ -41,6 +49,7 @@ Shader "Halo"
 			Name "ShadowCaster"
 			Tags{ "LightMode" = "ShadowCaster" }
 			ZWrite On
+			AlphaToMask Off
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
@@ -103,12 +112,12 @@ Shader "Halo"
 }
 /*ASEBEGIN
 Version=14301
-1927;29;1066;1854;673.0806;739.6632;1;True;True
+842;92;480;635;2762.2;1318.147;3.406417;True;False
+Node;AmplifyShaderEditor.ColorNode;2;-330.7468,-207.1985;Float;False;Property;_color;color;1;0;Create;True;0,0,0,0;0.1838235,0.1838235,0.1838235,1;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.RangedFloatNode;3;-270.8878,107.062;Float;False;Constant;_Float0;Float 0;2;0;Create;True;0;0;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.ColorNode;2;-330.7468,-207.1985;Float;False;Property;_color;color;1;0;Create;True;0,0,0,0;0,0,0,0;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.StandardSurfaceOutputNode;0;0,0;Float;False;True;2;Float;ASEMaterialInspector;0;0;Standard;Halo;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;Back;0;0;False;0;0;False;0;Custom;0.5;True;True;0;False;Transparent;Geometry;All;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;False;0;255;255;0;0;0;0;0;0;0;0;False;2;15;10;25;False;0.5;True;4;One;One;0;Zero;Zero;OFF;OFF;0;False;0;0,0,0,0;VertexOffset;True;False;Cylindrical;False;Relative;0;;0;-1;-1;-1;0;0;0;False;0;0;16;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT3;0,0,0;False;3;FLOAT;0.0;False;4;FLOAT;0.0;False;5;FLOAT;0.0;False;6;FLOAT3;0,0,0;False;7;FLOAT3;0,0,0;False;8;FLOAT;0.0;False;9;FLOAT;0.0;False;10;FLOAT;0.0;False;13;FLOAT3;0,0,0;False;11;FLOAT3;0,0,0;False;12;FLOAT3;0,0,0;False;14;FLOAT4;0,0,0,0;False;15;FLOAT3;0,0,0;False;0
+Node;AmplifyShaderEditor.StandardSurfaceOutputNode;0;0,0;Float;False;True;2;Float;ASEMaterialInspector;0;0;Standard;Halo;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;Back;2;0;False;0;0;False;0;Custom;0.5;True;True;0;True;Transparent;Overlay;All;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;2;255;255;6;3;0;0;0;0;0;0;False;2;15;10;25;False;0.5;True;4;One;One;2;SrcAlpha;OneMinusSrcAlpha;OFF;OFF;0;False;0;0,0,0,0;VertexOffset;True;False;Cylindrical;False;Relative;0;;0;-1;-1;-1;0;0;0;True;0;0;16;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT3;0,0,0;False;3;FLOAT;0.0;False;4;FLOAT;0.0;False;5;FLOAT;0.0;False;6;FLOAT3;0,0,0;False;7;FLOAT3;0,0,0;False;8;FLOAT;0.0;False;9;FLOAT;0.0;False;10;FLOAT;0.0;False;13;FLOAT3;0,0,0;False;11;FLOAT3;0,0,0;False;12;FLOAT3;0,0,0;False;14;FLOAT4;0,0,0,0;False;15;FLOAT3;0,0,0;False;0
 WireConnection;0;2;2;0
 WireConnection;0;4;3;0
 WireConnection;0;9;2;4
 ASEEND*/
-//CHKSM=B4B2793ED2BD51302CD89DFD9ED0516EDDAADD54
+//CHKSM=4DFB6E8F7495E825E556F4CE53506F214E6CF656
