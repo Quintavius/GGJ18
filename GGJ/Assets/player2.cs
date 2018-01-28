@@ -25,31 +25,9 @@ public class player2 : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		moving = false;
-		if (Input.GetKeyDown (KeyCode.Space) && !(gameObject.GetComponent<LightState>().playerIsLit)) 
-		{
-			if (IsGrounded ()) 
-			{
-				m_rigidBody.velocity = new Vector3 (0.0f, jump, 0.0f);
-			}
-		}	
-
-
-		if (Input.GetKey (KeyCode.RightArrow)) 
-		{
-			right = true;
-			moving = true;
-			if (m_rigidBody.velocity.x < maxSpeed)
-			m_rigidBody.velocity += new Vector3 (speed*Time.deltaTime, 0.0f, 0.0f);
-		}	
-
-		if (Input.GetKey(KeyCode.LeftArrow)) 
-		{
-			right = false;
-			moving = true;
-			if (m_rigidBody.velocity.x > (maxSpeed * -1.0f)) {
-				m_rigidBody.velocity += new Vector3 (-1.0f * speed * Time.deltaTime, 0.0f, 0.0f);
-			}
-		}	
+		
+		anim.SetBool("isGrounded", IsGrounded());
+		
 
 		//if (big) {
 		//	gameObject.transform.localScale = new Vector3 (2.0f, 2.0f, 2.0f);
@@ -71,9 +49,42 @@ public class player2 : MonoBehaviour {
 		transform.rotation = NewRotation;
 		transform.position = new Vector3 (transform.position.x, transform.position.y, -5.6f);
 		anim.SetFloat("yvelocity", m_rigidBody.velocity.y);
+
 		if (right) 
 		{
 			transform.Rotate (Vector3.up * 180);
+		}
+
+		if (Input.GetKeyDown (KeyCode.Space) && !(gameObject.GetComponent<LightState>().playerIsLit)) 
+		{
+			if (IsGrounded ()) 
+			{
+				m_rigidBody.velocity = new Vector3 (0.0f, jump, 0.0f);
+			}
+		}	
+
+		if (Input.GetAxis("Horizontal") > 0.1f) 
+		{
+			right = true;
+			moving = true;
+			anim.SetBool("isWalking", true);
+			if (m_rigidBody.velocity.x < maxSpeed)
+				//m_rigidBody.velocity += new Vector3 (speed*Time.deltaTime, 0.0f, 0.0f);
+				m_rigidBody.AddForce(Vector3.right * speed);
+		}	
+
+		if (Input.GetAxis("Horizontal") < -0.1f) 
+		{
+			right = false;
+			moving = true;
+			anim.SetBool("isWalking", true);
+			if (m_rigidBody.velocity.x > -maxSpeed) {
+				//m_rigidBody.velocity += new Vector3 (speed * Time.deltaTime, 0.0f, 0.0f);
+				m_rigidBody.AddForce(Vector3.left * speed);
+			}
+		}	
+		if (Input.GetAxis("Horizontal") == 0){
+			anim.SetBool("isWalking", false);
 		}
 	}
 

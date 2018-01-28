@@ -6,9 +6,11 @@ using UnityEngine;
 public class LightState : MonoBehaviour {
 	public bool playerIsLit;
 	public Animator ani;
-	[HideInInspector]
-	public int activeLights;
+	public int activeLights = 0;
 
+	private void Awake(){
+		activeLights = 0;
+	}
 	private void Update(){
 		ani.SetBool("isLit", playerIsLit);
 	}
