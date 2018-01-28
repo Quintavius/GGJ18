@@ -11,8 +11,12 @@ public class player2 : MonoBehaviour {
 	public float speed;
 	bool big = false;
 	float distToGround = 0.0f;
+	Animator anim;
+	public GameObject child;
+	public float maxSpeed;
 	// Use this for initialization
 	void Start () {
+		anim = child.GetComponent<Animator> ();
 		m_rigidBody = GetComponent<Rigidbody> ();
 		NewRotation = transform.rotation;
 		//gameObject.GetComponent<Rigidbody>().freezeRotation = true;
@@ -34,14 +38,17 @@ public class player2 : MonoBehaviour {
 		{
 			right = true;
 			moving = true;
-			m_rigidBody.velocity = new Vector3 (speed*Time.deltaTime, 0.0f, 0.0f);
+			if (m_rigidBody.velocity.x < maxSpeed)
+			m_rigidBody.velocity += new Vector3 (speed*Time.deltaTime, 0.0f, 0.0f);
 		}	
 
 		if (Input.GetKey(KeyCode.LeftArrow)) 
 		{
 			right = false;
 			moving = true;
-			m_rigidBody.velocity = new Vector3 (-1.0f * speed * Time.deltaTime, 0.0f,  0.0f);
+			if (m_rigidBody.velocity.x > (maxSpeed * -1.0f)) {
+				m_rigidBody.velocity += new Vector3 (-1.0f * speed * Time.deltaTime, 0.0f, 0.0f);
+			}
 		}	
 
 		//if (big) {
@@ -62,6 +69,8 @@ public class player2 : MonoBehaviour {
 	void FixedUpdate()
 	{
 		transform.rotation = NewRotation;
+		transform.position = new Vector3 (transform.position.x, transform.position.y, -5.6f);
+		anim.SetFloat("yvelocity", m_rigidBody.velocity.y);
 		if (right) 
 		{
 			transform.Rotate (Vector3.up * 180);
