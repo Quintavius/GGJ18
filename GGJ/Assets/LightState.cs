@@ -4,7 +4,7 @@ using UnityEngine;
 
 //This holds whether the player is lit by anything
 public class LightState : MonoBehaviour {
-	public bool playerIsLit;
+	public bool playerIsLit = false;
 	public Animator ani;
 	public int activeLights = 0;
 

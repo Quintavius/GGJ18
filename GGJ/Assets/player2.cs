@@ -47,7 +47,7 @@ public class player2 : MonoBehaviour {
 	void FixedUpdate()
 	{
 		transform.rotation = NewRotation;
-		transform.position = new Vector3 (transform.position.x, transform.position.y, -5.6f);
+		transform.position = new Vector3 (transform.position.x, transform.position.y, 0f);
 		anim.SetFloat("yvelocity", m_rigidBody.velocity.y);
 
 		if (right) 
@@ -55,7 +55,7 @@ public class player2 : MonoBehaviour {
 			transform.Rotate (Vector3.up * 180);
 		}
 
-		if (Input.GetKeyDown (KeyCode.Space) && !(gameObject.GetComponent<LightState>().playerIsLit)) 
+		if (Input.GetButtonDown("Jump") && !(gameObject.GetComponent<LightState>().playerIsLit)) 
 		{
 			if (IsGrounded ()) 
 			{
