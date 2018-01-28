@@ -1,22 +1,45 @@
 fileFormatVersion: 2
-guid: 643cc7e61bc3d414d984f7aa8eec01fd
-timeCreated: 1517039130
+guid: 7fb25a1c95639a9489ccb991bbe9bbfc
+timeCreated: 1517102204
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Bone001
+    100004: Bone002
+    100006: Bone003
+    100008: Bone004
+    100010: Bone005
+    100012: Bone006
+    100014: Bone007
+    100016: Bone008
+    100018: Box001
     400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Box008
+    400002: Bone001
+    400004: Bone002
+    400006: Bone003
+    400008: Bone004
+    400010: Bone005
+    400012: Bone006
+    400014: Bone007
+    400016: Bone008
+    400018: Box001
+    4300000: Box001
+    7400000: Take 001
     9500000: //RootNode
+    13700000: Box001
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: 02 - Default
+    second: {fileID: 2100000, guid: 1f34d24c1ff41994ba38749be25e71cf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: 03 - Default
-    second: {fileID: 2100000, guid: 6ea7ab06309b8ad4487d2f60b5b0a6c8, type: 2}
+    second: {fileID: 2100000, guid: 7d4597cc7cb9d7148ae603f6b7a664b0, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
