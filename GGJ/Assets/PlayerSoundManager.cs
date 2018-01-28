@@ -10,6 +10,8 @@ public class PlayerSoundManager : MonoBehaviour {
 	public AudioClip[] dropSounds;
 	public AudioClip[] pushSounds;
 
+	AudioSource source;
+
 	//References
 	Animator ani;
 	player2 movement;
@@ -17,10 +19,15 @@ public class PlayerSoundManager : MonoBehaviour {
 	private void Start(){
 		movement = FindObjectOfType<player2>();
 		ani = GetComponentInChildren<Animator>();
+		source = GetComponent<AudioSource>();
 	}
 	
 	private void Update(){
-		
+		if (Input.GetButtonDown("Jump") && movement.IsGrounded()){
+			int soundArraySize = jumpSounds.Length;
+			AudioClip chosenImpactSound = jumpSounds[Random.Range(0,soundArraySize)];
+			source.PlayOneShot(chosenImpactSound);
+		}
 	}
 
 }
